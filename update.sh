@@ -1,4 +1,4 @@
 #!/bin/bash
 
 
-qwen -p @战报更新.md -y
+qwen -p @content/战报更新.md -y
