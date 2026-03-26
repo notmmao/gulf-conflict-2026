@@ -116,8 +116,8 @@ def main():
                         help='HTML 文件输出目录 (默认：public)')
     parser.add_argument('--template', '-t', default='templates/default.html',
                         help='HTML 模板路径 (默认：templates/default.html)')
-    parser.add_argument('--css', '-c', default='styles/wechat.css',
-                        help='CSS 文件路径 (默认：styles/wechat.css)')
+    parser.add_argument('--css', '-c', default='public/styles/wechat.css',
+                        help='CSS 文件路径 (默认：public/styles/wechat.css)')
     
     args = parser.parse_args()
     
@@ -143,9 +143,10 @@ def main():
     
     # 加载模板
     template = load_template(template_path)
-    
+
     # 计算 CSS 相对路径 (从 public 到 styles)
-    css_rel_path = '../styles/wechat.css'
+    # CSS 在 public/styles/wechat.css，所以相对路径是 ./styles/wechat.css
+    css_rel_path = './styles/wechat.css'
     
     print(f"\n📁 输入目录：{input_dir}")
     print(f"📁 输出目录：{output_dir}")
@@ -155,9 +156,9 @@ def main():
     
     # 创建输出目录
     output_dir.mkdir(parents=True, exist_ok=True)
-    
-    # 复制 CSS 到输出目录
-    output_css_dir = output_dir.parent / 'styles'
+
+    # 复制 CSS 到输出目录 (public/styles)
+    output_css_dir = output_dir / 'styles'
     output_css_dir.mkdir(parents=True, exist_ok=True)
     with open(css_path, 'r', encoding='utf-8') as f:
         css_content = f.read()

@@ -1,0 +1,5 @@
+{
+  "outputDirectory": "public",
+  "installCommand": "echo 'No dependencies to install'",
+  "buildCommand": "echo 'Build locally before pushing'"
+}
