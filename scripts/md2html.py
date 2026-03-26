@@ -30,6 +30,27 @@ def extract_title(md_content: str) -> str:
     return "未命名文档"
 
 
+def inject_dynamic_content(md_content: str, content_dir: Path) -> str:
+    """
+    注入动态内容
+    支持语法：<!-- include: filename.md -->
+    """
+    import re
+    
+    pattern = r'<!-- include:\s*(\S+\.md)\s*-->'
+    
+    def replace_include(match):
+        filename = match.group(1)
+        file_path = content_dir / filename
+        if file_path.exists():
+            with open(file_path, 'r', encoding='utf-8') as f:
+                return f.read()
+        else:
+            return f'<!-- 文件不存在：{filename} -->'
+    
+    return re.sub(pattern, replace_include, md_content)
+
+
 def generate_html(md_content: str, title: str, template: str, css_rel_path: str) -> str:
     """生成 HTML 内容"""
     # 配置 Markdown 扩展
@@ -59,27 +80,31 @@ def calculate_css_rel_path(output_path: Path) -> str:
     return '../styles/wechat.css'
 
 
-def convert_file(md_file: Path, output_dir: Path, template: str, css_rel_path: str) -> None:
+def convert_file(md_file: Path, output_dir: Path, template: str, css_rel_path: str, content_dir: Path) -> None:
     """转换单个 Markdown 文件"""
     # 读取 Markdown 内容
     with open(md_file, 'r', encoding='utf-8') as f:
         md_content = f.read()
     
+    # 注入动态内容（仅对 index.md 处理）
+    if md_file.name == 'index.md':
+        md_content = inject_dynamic_content(md_content, content_dir)
+
     # 提取标题
     title = extract_title(md_content)
-    
+
     # 生成 HTML
     html_content = generate_html(md_content, title, template, css_rel_path)
-    
+
     # 确定输出路径
     relative_path = md_file.parent.relative_to(md_file.parent.parent / 'content')
     output_path = output_dir / relative_path / (md_file.stem + '.html')
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    
+
     # 写入 HTML 文件
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(html_content)
-    
+
     print(f"✓ {md_file.name} -> {output_path.relative_to(output_dir.parent)}")
 
 
@@ -143,18 +168,18 @@ def main():
     
     # 查找并转换所有 Markdown 文件
     md_files = list(input_dir.rglob('*.md'))
-    
+
     if not md_files:
         print("⚠ 未找到 Markdown 文件")
         return
-    
+
     print(f"📝 找到 {len(md_files)} 个 Markdown 文件\n")
-    
+
     for md_file in md_files:
         # 跳过 AI 目录
         if 'AI' in md_file.parts:
             continue
-        convert_file(md_file, output_dir, template, css_rel_path)
+        convert_file(md_file, output_dir, template, css_rel_path, input_dir)
     
     print(f"\n✅ 完成！共转换 {len(md_files)} 个文件")
     print(f"📂 输出位置：{output_dir}")
