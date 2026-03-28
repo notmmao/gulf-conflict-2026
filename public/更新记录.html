@@ -8,12 +8,41 @@
   
 </head>
 <body>
+  <nav class="toc-nav">
+    <div class="toc-inner">
+      <span class="toc-label">目录</span>
+      <div class="toc">
+<ul></ul>
+</div>
+
+    </div>
+  </nav>
   <article>
     <p>2026-03-19 初次创建文档，更新战况至第 20 天（3 月 19 日）<br />
 2026-03-23 更新战况至第 24 天（3 月 23 日），新增 D21-D23 内容<br />
 2026-03-26 更新战况至第 27 天（3 月 26 日），新增 D24-D27 内容，包括布什尔核电站遭袭、高级别和平谈判等<br />
 2026-03-28 更新战况至第 29 天（3 月 28 日），新增 D28-D29 内容，包括伊朗回应美 15 点停火方案、特朗普推迟空袭 10 天、战争进入第五周</p>
   </article>
+  <button class="back-to-top" id="backToTop" title="返回顶部">↑ 顶部</button>
   
+  <script>
+    // 回到顶部按钮功能
+    (function() {
+      var btn = document.getElementById('backToTop');
+      if (!btn) return;
+      
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+          btn.classList.add('visible');
+        } else {
+          btn.classList.remove('visible');
+        }
+      });
+      
+      btn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+  </script>
 </body>
 </html>

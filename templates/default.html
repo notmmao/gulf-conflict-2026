@@ -8,9 +8,35 @@
   {{ head_extra }}
 </head>
 <body>
+  <nav class="toc-nav">
+    <div class="toc-inner">
+      <span class="toc-label">目录</span>
+      {{ toc }}
+    </div>
+  </nav>
   <article>
     {{ content }}
   </article>
+  <button class="back-to-top" id="backToTop" title="返回顶部">↑ 顶部</button>
   {{ js_extra }}
+  <script>
+    // 回到顶部按钮功能
+    (function() {
+      var btn = document.getElementById('backToTop');
+      if (!btn) return;
+      
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+          btn.classList.add('visible');
+        } else {
+          btn.classList.remove('visible');
+        }
+      });
+      
+      btn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+  </script>
 </body>
 </html>

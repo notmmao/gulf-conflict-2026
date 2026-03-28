@@ -8,15 +8,29 @@
   
 </head>
 <body>
+  <nav class="toc-nav">
+    <div class="toc-inner">
+      <span class="toc-label">目录</span>
+      <div class="toc">
+<ul>
+<li><a href="#任务描述">任务描述</a><ul>
+<li><a href="#更新逻辑">更新逻辑</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+    </div>
+  </nav>
   <article>
-    <h1 id="_1">任务描述</h1>
+    <h1 id="任务描述">任务描述</h1>
 <p>总结 2026 年出美以 vs 伊朗战争/冲突信息。结果保存在</p>
 <ul>
 <li>美以伊战争 - 概况.md - 保存事件背景等基本客观事实</li>
 <li>美以伊战争 - 战报.md - 搜索更新自开战以来每日的战报，主要包括双方战况，消息出处，以及评估置信度</li>
 <li>更新记录.md - 记录每次更新的日期和主要内容（每行一条）</li>
 </ul>
-<h2 id="_2">更新逻辑</h2>
+<h2 id="更新逻辑">更新逻辑</h2>
 <ol>
 <li><strong>首次运行</strong>（<code>更新记录.md</code> 不存在）：</li>
 <li>
@@ -34,6 +48,26 @@
 <li><strong>否则</strong> 直接退出</li>
 </ol>
   </article>
+  <button class="back-to-top" id="backToTop" title="返回顶部">↑ 顶部</button>
   
+  <script>
+    // 回到顶部按钮功能
+    (function() {
+      var btn = document.getElementById('backToTop');
+      if (!btn) return;
+      
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+          btn.classList.add('visible');
+        } else {
+          btn.classList.remove('visible');
+        }
+      });
+      
+      btn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+  </script>
 </body>
 </html>

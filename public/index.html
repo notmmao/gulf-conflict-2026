@@ -8,13 +8,33 @@
   
 </head>
 <body>
+  <nav class="toc-nav">
+    <div class="toc-inner">
+      <span class="toc-label">目录</span>
+      <div class="toc">
+<ul>
+<li><a href="#2026-年美以伊战争跟踪记录">2026 年美以伊战争跟踪记录</a><ul>
+<li><a href="#-文档导航">📖 文档导航</a></li>
+<li><a href="#-更新记录">📝 更新记录</a></li>
+<li><a href="#-战报更新说明">🔄 战报更新说明</a></li>
+</ul>
+</li>
+<li><a href="#任务描述">任务描述</a><ul>
+<li><a href="#更新逻辑">更新逻辑</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+    </div>
+  </nav>
   <article>
-    <h1 id="2026">2026 年美以伊战争跟踪记录</h1>
+    <h1 id="2026-年美以伊战争跟踪记录">2026 年美以伊战争跟踪记录</h1>
 <blockquote>
 <p>本项目使用 Qwen Code 自动跟踪 2026 年美以伊战争进展，生成客观战报和概况文档。</p>
 </blockquote>
 <hr />
-<h2 id="_1">📖 文档导航</h2>
+<h2 id="-文档导航">📖 文档导航</h2>
 <table>
 <thead>
 <tr>
@@ -34,21 +54,21 @@
 </tbody>
 </table>
 <hr />
-<h2 id="_2">📝 更新记录</h2>
+<h2 id="-更新记录">📝 更新记录</h2>
 <p>2026-03-19 初次创建文档，更新战况至第 20 天（3 月 19 日）<br />
 2026-03-23 更新战况至第 24 天（3 月 23 日），新增 D21-D23 内容<br />
 2026-03-26 更新战况至第 27 天（3 月 26 日），新增 D24-D27 内容，包括布什尔核电站遭袭、高级别和平谈判等<br />
 2026-03-28 更新战况至第 29 天（3 月 28 日），新增 D28-D29 内容，包括伊朗回应美 15 点停火方案、特朗普推迟空袭 10 天、战争进入第五周</p>
 <hr />
-<h2 id="_3">🔄 战报更新说明</h2>
-<h1 id="_4">任务描述</h1>
+<h2 id="-战报更新说明">🔄 战报更新说明</h2>
+<h1 id="任务描述">任务描述</h1>
 <p>总结 2026 年出美以 vs 伊朗战争/冲突信息。结果保存在</p>
 <ul>
 <li>美以伊战争 - 概况.md - 保存事件背景等基本客观事实</li>
 <li>美以伊战争 - 战报.md - 搜索更新自开战以来每日的战报，主要包括双方战况，消息出处，以及评估置信度</li>
 <li>更新记录.md - 记录每次更新的日期和主要内容（每行一条）</li>
 </ul>
-<h2 id="_5">更新逻辑</h2>
+<h2 id="更新逻辑">更新逻辑</h2>
 <ol>
 <li><strong>首次运行</strong>（<code>更新记录.md</code> 不存在）：</li>
 <li>
@@ -68,6 +88,26 @@
 <hr />
 <p><em>最后更新：2026 年 3 月 26 日</em></p>
   </article>
+  <button class="back-to-top" id="backToTop" title="返回顶部">↑ 顶部</button>
   
+  <script>
+    // 回到顶部按钮功能
+    (function() {
+      var btn = document.getElementById('backToTop');
+      if (!btn) return;
+      
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+          btn.classList.add('visible');
+        } else {
+          btn.classList.remove('visible');
+        }
+      });
+      
+      btn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+  </script>
 </body>
 </html>

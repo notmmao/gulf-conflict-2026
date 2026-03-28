@@ -51,25 +51,67 @@ def inject_dynamic_content(md_content: str, content_dir: Path) -> str:
     return re.sub(pattern, replace_include, md_content)
 
 
+def slugify(value: str, separator: str = '-') -> str:
+    """将标题转换为无空格的 ID"""
+    import html
+    import re
+    # 先解码 HTML 实体
+    value = html.unescape(value)
+    # 移除空格，用连字符替换
+    value = re.sub(r'\s+', separator, value.strip())
+    # 只保留字母、数字、连字符、下划线和中文
+    value = re.sub(r'[^\w\u4e00-\u9fff\-]', '', value)
+    return value.lower()
+
+
+def fix_href_spaces(html_content: str) -> str:
+    """修复 HTML 中所有 href 链接的空格问题"""
+    import re
+    
+    def fix_href(match):
+        href = match.group(1)
+        # 只处理锚点链接
+        if href.startswith('#'):
+            # 将 href 中的空格替换为连字符
+            fixed = re.sub(r'\s+', '-', href)
+            return f'href="{fixed}"'
+        return match.group(0)
+    
+    return re.sub(r'href="([^"]*)"', fix_href, html_content)
+
+
 def generate_html(md_content: str, title: str, template: str, css_rel_path: str) -> str:
     """生成 HTML 内容"""
     # 配置 Markdown 扩展
     md = markdown.Markdown(extensions=[
+        'toc',
         'tables',
         'fenced_code',
-        'toc',
         'nl2br',
-    ])
-    
+    ], extension_configs={
+        'toc': {
+            'permalink': False,
+            'separator': '-',
+            'slugify': slugify,
+        }
+    })
+
     html_content = md.convert(md_content)
     
+    # 后处理：修复所有 href 中的空格
+    html_content = fix_href_spaces(html_content)
+
+    # 获取生成的目录 HTML
+    toc_html = md.toc
+
     # 替换模板占位符
     html = template.replace('{{ title }}', title)
     html = html.replace('{{ content }}', html_content)
+    html = html.replace('{{ toc }}', toc_html)
     html = html.replace('{{ css_path }}', css_rel_path)
     html = html.replace('{{ head_extra }}', '')
     html = html.replace('{{ js_extra }}', '')
-    
+
     return html
 
 
