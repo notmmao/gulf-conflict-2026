@@ -20,14 +20,18 @@
 <ol>
 <li><strong>首次运行</strong>（<code>更新记录.md</code> 不存在）：</li>
 <li>
-<p>创建所有文档，更新战况至最新日期</p>
+<p>创建所有文档，更新战况至最新日期和时间</p>
 </li>
 <li>
 <p><strong>后续运行</strong>（<code>更新记录.md</code> 已存在）：</p>
 </li>
-<li>读取 <code>更新记录.md</code> 最后一行，获取上次更新日期</li>
-<li>从上次更新日期的<strong>次日</strong>开始，搜索并更新战况至最新日期</li>
-<li>在 <code>更新记录.md</code> 末尾追加新的更新记录</li>
+<li>读取 <code>更新记录.md</code> 最后一行，获取<code>上次更新日期和时间</code></li>
+<li><strong>如果</strong> <code>当前日期时间</code> &gt; <code>更新日期</code>：<ul>
+<li>搜索, 从<code>上次更新日期和时间</code> - <code>当前日期时间</code> 中获取更新内容, 更新战况至 <code>美以伊战争 - 战报.md</code></li>
+<li>在 <code>更新记录.md</code> 末尾追加新的更新记录, 包括日期和时间</li>
+</ul>
+</li>
+<li><strong>否则</strong> 直接退出</li>
 </ol>
   </article>
   
