@@ -43,3 +43,4 @@ styles/*.css
 
 # 临时文件
 *.orig
+.env
