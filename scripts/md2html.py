@@ -67,11 +67,15 @@ def assemble_daily_files(daily_dir: Path) -> str:
     else:
         header = "# 2026 年美以伊战争战报\n"
     
-    # 读取所有 daily 文件并排序
-    daily_files = sorted([
-        f for f in daily_dir.glob('D*.md')
-        if f.name.startswith('D') and f.name[1].isdigit()
-    ])
+    # 读取所有 daily 文件并按数字倒序排序
+    daily_files = sorted(
+        [
+            f for f in daily_dir.glob('D*.md')
+            if f.name.startswith('D') and f.name[1].isdigit()
+        ],
+        key=lambda f: int(re.search(r'D(\d+)', f.name).group(1)),
+        reverse=True  # 倒序，最新的在前面
+    )
     
     if not daily_files:
         return header
