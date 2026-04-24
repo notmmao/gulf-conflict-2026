@@ -14,7 +14,10 @@
       <div class="toc">
 <ul>
 <li><a href="#任务描述">任务描述</a><ul>
+<li><a href="#输入">输入</a></li>
 <li><a href="#更新逻辑">更新逻辑</a></li>
+<li><a href="#daily-文件格式">daily 文件格式</a></li>
+<li><a href="#注意事项">注意事项</a></li>
 </ul>
 </li>
 </ul>
@@ -24,29 +27,64 @@
   </nav>
   <article>
     <h1 id="任务描述">任务描述</h1>
-<p>总结 2026 年出美以 vs 伊朗战争/冲突信息。结果保存在</p>
-<ul>
-<li>美以伊战争 - 概况.md - 保存事件背景等基本客观事实</li>
-<li>美以伊战争 - 战报.md - 搜索更新自开战以来每日的战报，主要包括双方战况，消息出处，以及评估置信度</li>
-<li>更新记录.md - 记录每次更新的日期和主要内容（每行一条）</li>
-</ul>
+<p>搜索并整理 2026 年美以伊战争最新一天的战报，保存到 <code>content/daily/</code> 目录。</p>
+<h2 id="输入">输入</h2>
+<ol>
+<li>读取 <code>content/更新记录.md</code> 最后一行，获取上次更新日期</li>
+<li>读取 <code>content/daily/</code> 下最新的 1-2 个文件，了解上下文</li>
+<li>读取 <code>content/美以伊战争 - 概况.md</code>，了解战争背景</li>
+</ol>
 <h2 id="更新逻辑">更新逻辑</h2>
 <ol>
-<li><strong>首次运行</strong>（<code>更新记录.md</code> 不存在）：</li>
-<li>
-<p>创建所有文档，更新战况至最新日期和时间</p>
-</li>
-<li>
-<p><strong>后续运行</strong>（<code>更新记录.md</code> 已存在）：</p>
-</li>
-<li>读取 <code>更新记录.md</code> 最后一行，获取<code>上次更新日期和时间</code></li>
-<li><strong>如果</strong> <code>当前日期时间</code> &gt; <code>更新日期</code>：<ul>
-<li>搜索, 从<code>上次更新日期和时间</code> - <code>当前日期时间</code> 中获取更新内容, 更新战况至 <code>美以伊战争 - 战报.md</code></li>
-<li>在 <code>更新记录.md</code> 末尾追加新的更新记录, 包括日期和时间</li>
+<li>如果 <code>当前日期</code> &gt; <code>上次更新日期</code>：</li>
+<li>搜索从上次更新到当前的新信息</li>
+<li>在 <code>content/daily/</code> 下创建新文件，命名格式：<code>D{天数}-{月}-{日}.md</code><ul>
+<li>例如：<code>D50-04-18.md</code></li>
+<li>天数 = 冲突开始的天数, 例如 2026 年 2 月 28 日就是 <code>1</code></li>
 </ul>
 </li>
-<li><strong>否则</strong> 直接退出</li>
+<li>更新 <code>content/daily/header.md</code></li>
+<li>更新 <code>content/美以伊战争 - 概况.md</code>（如有新的背景信息）</li>
+<li>在 <code>content/更新记录.md</code> 末尾追加一行更新记录</li>
+<li>否则直接退出</li>
 </ol>
+<h2 id="daily-文件格式">daily 文件格式</h2>
+<pre><code class="language-markdown">## D{天数} - {月} 月 {日} 日
+
+### 战况概述
+
+（简要概述当天主要战况）
+
+### 主要事件
+
+- **事件1**：描述（来源：XXX）
+- **事件2**：描述（来源：XXX）
+
+### 伤亡与损失
+
+（如有）
+
+### 外交动态
+
+（如有）
+
+### 信息来源
+
+- 来源1
+- 来源2
+
+| 等级 | 说明 |
+|------|------|
+| **高** | 多方官方来源确认 |
+| **中** | 单一可靠来源报道 |
+| **低** | 单一来源或未获独立证实 |
+</code></pre>
+<h2 id="注意事项">注意事项</h2>
+<ul>
+<li>只新增文件，不要修改已有的 daily 文件</li>
+<li>如果是多天合并的战报（如 D7-D10），文件名用 <code>D7-D10-03-06.md</code></li>
+<li>每个 daily 文件控制在合理长度，避免过长</li>
+</ul>
   </article>
   <button class="back-to-top" id="backToTop" title="返回顶部">↑ 顶部</button>
   
